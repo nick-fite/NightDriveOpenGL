@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/glfw3-x64-windows-3.4#1-e709ff4a-945f-4401-8e9c-52aff02a3dd8",
-  "name": "glfw3:x64-windows@3.4#1 54e9ef200ab811cca0551795e870c92801b0fe8c89767524e53e276086b053fa",
+  "documentNamespace": "https://spdx.org/spdxdocs/glfw3-x64-windows-3.4#1-4a68444b-b6ab-42db-99fb-c25e976b8bb0",
+  "name": "glfw3:x64-windows@3.4#1 92de410a2251304e83fd173a77e490e2847b4b33409f4755f5707708ba02df16",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2025-03-22-d4dd14112c2026ee57e59f966ecfa3b9137bd143"
     ],
-    "created": "2025-04-02T02:52:49Z"
+    "created": "2025-04-02T15:46:03Z"
   },
   "relationships": [
     {
@@ -58,7 +58,7 @@
       "name": "glfw3",
       "SPDXID": "SPDXRef-port",
       "versionInfo": "3.4#1",
-      "downloadLocation": "git+https://github.com/Microsoft/vcpkg#ports/glfw3",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@d4bbd4f27c2ca619f57778985120cddcedadb1cc",
       "homepage": "https://github.com/glfw/glfw",
       "licenseConcluded": "Zlib",
       "licenseDeclared": "NOASSERTION",
@@ -69,7 +69,7 @@
     {
       "name": "glfw3:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "54e9ef200ab811cca0551795e870c92801b0fe8c89767524e53e276086b053fa",
+      "versionInfo": "92de410a2251304e83fd173a77e490e2847b4b33409f4755f5707708ba02df16",
       "downloadLocation": "NONE",
       "licenseConcluded": "Zlib",
       "licenseDeclared": "NOASSERTION",
@@ -93,7 +93,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/dev/vcpkg/ports/glfw3/glfw3Config.cmake",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d4bbd4f27c2ca619f57778985120cddcedadb1cc/glfw3Config.cmake",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -105,7 +105,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/glfw3/portfile.cmake",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d4bbd4f27c2ca619f57778985120cddcedadb1cc/portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -117,7 +117,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/glfw3/vcpkg.json",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d4bbd4f27c2ca619f57778985120cddcedadb1cc/vcpkg.json",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {

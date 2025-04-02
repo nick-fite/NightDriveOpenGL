@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/egl-registry-x64-windows-2024-01-25-cb9517c4-21cd-4e0f-9f51-c2e0a5a75c01",
-  "name": "egl-registry:x64-windows@2024-01-25 d5d5b9d7e2022af2368f0a8046ee5d4efe8927dd69292d9217ee0914c12260e2",
+  "documentNamespace": "https://spdx.org/spdxdocs/egl-registry-x64-windows-2024-01-25-243b7d95-6e92-4745-b19d-601684325aad",
+  "name": "egl-registry:x64-windows@2024-01-25 a32024ceb9100e2bf7e5c8efda81b57dd4286b7a7e76460764ac0ee7689b2af8",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2025-03-22-d4dd14112c2026ee57e59f966ecfa3b9137bd143"
     ],
-    "created": "2025-04-02T02:52:00Z"
+    "created": "2025-04-02T15:45:10Z"
   },
   "relationships": [
     {
@@ -58,7 +58,7 @@
       "name": "egl-registry",
       "SPDXID": "SPDXRef-port",
       "versionInfo": "2024-01-25",
-      "downloadLocation": "git+https://github.com/Microsoft/vcpkg#ports/egl-registry",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@d883db43133dd223c4ffdbef4193943f6784d43a",
       "homepage": "https://github.com/KhronosGroup/EGL-Registry",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -69,7 +69,7 @@
     {
       "name": "egl-registry:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "d5d5b9d7e2022af2368f0a8046ee5d4efe8927dd69292d9217ee0914c12260e2",
+      "versionInfo": "a32024ceb9100e2bf7e5c8efda81b57dd4286b7a7e76460764ac0ee7689b2af8",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -93,7 +93,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/dev/vcpkg/ports/egl-registry/copyright",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d883db43133dd223c4ffdbef4193943f6784d43a/copyright",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -105,7 +105,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/egl-registry/portfile.cmake",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d883db43133dd223c4ffdbef4193943f6784d43a/portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -117,7 +117,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/egl-registry/vcpkg.json",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/d883db43133dd223c4ffdbef4193943f6784d43a/vcpkg.json",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {

@@ -1,5 +1,5 @@
-CMakeFiles/NightDrive.dir/main.c.obj: \
- D:\profile\ redirect\nfite\Desktop\NightDriveOpenGL\main.c \
+CMakeFiles/NightDrive.dir/temp.c.obj: \
+ D:\profile\ redirect\nfite\Desktop\NightDriveOpenGL\temp.c \
  D:/profile\ redirect/nfite/Desktop/NightDriveOpenGL/build/vcpkg_installed/x64-windows/include/gl/glew.h \
  C:/msys64/ucrt64/include/inttypes.h C:/msys64/ucrt64/include/crtdefs.h \
  C:/msys64/ucrt64/include/corecrt.h C:/msys64/ucrt64/include/_mingw.h \

@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Nick/Desktop/opengl/NightDrive/main.c" "CMakeFiles/NightDrive.dir/main.c.obj" "gcc" "CMakeFiles/NightDrive.dir/main.c.obj.d"
+  "D:/profile redirect/nfite/Desktop/NightDriveOpenGL/main.c" "CMakeFiles/NightDrive.dir/main.c.obj" "gcc" "CMakeFiles/NightDrive.dir/main.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

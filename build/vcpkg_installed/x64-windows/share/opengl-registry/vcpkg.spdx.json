@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2024-02-10#1-5d9b47e6-f58f-436f-9300-c327d3a4d096",
-  "name": "opengl-registry:x64-windows@2024-02-10#1 ecb6551c268b8fbd2212a4e932fe7a93546a2941153c302e7261c7baeade0ff4",
+  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2024-02-10#1-aa7ea36e-8207-4a39-a67f-519a5fe7b569",
+  "name": "opengl-registry:x64-windows@2024-02-10#1 31bf9c49404763ff23522dbe9a3c291e62ea1721e532ecb626954b0149971019",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2025-03-22-d4dd14112c2026ee57e59f966ecfa3b9137bd143"
     ],
-    "created": "2025-04-02T02:52:10Z"
+    "created": "2025-04-02T15:45:15Z"
   },
   "relationships": [
     {
@@ -58,7 +58,7 @@
       "name": "opengl-registry",
       "SPDXID": "SPDXRef-port",
       "versionInfo": "2024-02-10#1",
-      "downloadLocation": "git+https://github.com/Microsoft/vcpkg#ports/opengl-registry",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@22f7aa58ee78c9f0db904b6251e9265f2be26f9d",
       "homepage": "https://github.com/KhronosGroup/OpenGL-Registry",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -69,7 +69,7 @@
     {
       "name": "opengl-registry:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "ecb6551c268b8fbd2212a4e932fe7a93546a2941153c302e7261c7baeade0ff4",
+      "versionInfo": "31bf9c49404763ff23522dbe9a3c291e62ea1721e532ecb626954b0149971019",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -93,7 +93,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/dev/vcpkg/ports/opengl-registry/copyright",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/22f7aa58ee78c9f0db904b6251e9265f2be26f9d/copyright",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -105,7 +105,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/opengl-registry/portfile.cmake",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/22f7aa58ee78c9f0db904b6251e9265f2be26f9d/portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -117,7 +117,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/dev/vcpkg/ports/opengl-registry/vcpkg.json",
+      "fileName": "./D:/profile redirect/nfite/AppData/Local/vcpkg/registries/git-trees/22f7aa58ee78c9f0db904b6251e9265f2be26f9d/vcpkg.json",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {

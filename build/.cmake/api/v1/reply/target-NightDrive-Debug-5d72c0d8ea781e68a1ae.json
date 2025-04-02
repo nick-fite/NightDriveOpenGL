@@ -53,7 +53,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -std=gnu99"
+					"fragment" : "-g -std=gnu99"
 				}
 			],
 			"defines" : 
@@ -68,7 +68,7 @@
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/Nick/Desktop/opengl/NightDrive/build/vcpkg_installed/x64-windows/include"
+					"path" : "D:/profile redirect/nfite/Desktop/NightDriveOpenGL/build/vcpkg_installed/x64-windows/include"
 				}
 			],
 			"language" : "C",
@@ -92,42 +92,38 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd",
+				"fragment" : "-g",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-Xlinker /subsystem:console",
-				"role" : "flags"
-			},
-			{
-				"fragment" : "-fuse-ld=lld-link",
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "vcpkg_installed/x64-windows/debug/lib/glfw3dll.lib",
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\glfw3dll.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "vcpkg_installed/x64-windows/debug/lib/glew32d.lib",
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\glew32d.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "-lOpenGL32.lib",
+				"fragment" : "-lOpenGL32",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lopengl32.lib",
+				"fragment" : "-lopengl32",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lglu32.lib",
+				"fragment" : "-lglu32",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames",
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
 				"role" : "libraries"
 			}
 		],

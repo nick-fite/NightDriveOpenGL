@@ -1,7 +1,139 @@
+Fetching registry information from https://github.com/microsoft/vcpkg (HEAD)...
 Detecting compiler hash for triplet x64-windows...
-Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe
-All requested packages are currently installed.
-Total install time: 567 us
+A suitable version of powershell-core was not found (required v7.2.24).
+Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.2.24/PowerShell-7.2.24-win-x64.zip -> PowerShell-7.2.24-win-x64.zip
+Successfully downloaded PowerShell-7.2.24-win-x64.zip
+Extracting powershell-core...
+Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe
+The following packages will be built and installed:
+  * egl-registry:x64-windows@2024-01-25 -- git+https://github.com/microsoft/vcpkg@d883db43133dd223c4ffdbef4193943f6784d43a
+    glew:x64-windows@2.2.0#6 -- git+https://github.com/microsoft/vcpkg@98d4ecc965968cdc8c85c0347c4638bbda36bef4
+    glfw3:x64-windows@3.4#1 -- git+https://github.com/microsoft/vcpkg@d4bbd4f27c2ca619f57778985120cddcedadb1cc
+  * opengl:x64-windows@2022-12-04#3 -- git+https://github.com/microsoft/vcpkg@c3ae71738f88449ebcd781cef60d9a253fa091d4
+  * opengl-registry:x64-windows@2024-02-10#1 -- git+https://github.com/microsoft/vcpkg@22f7aa58ee78c9f0db904b6251e9265f2be26f9d
+  * vcpkg-cmake:x64-windows@2024-04-23 -- git+https://github.com/microsoft/vcpkg@e74aa1e8f93278a8e71372f1fa08c3df420eb840
+  * vcpkg-cmake-config:x64-windows@2024-05-23 -- git+https://github.com/microsoft/vcpkg@97a63e4bc1a17422ffe4eff71da53b4b561a7841
+Additional packages (*) will be modified to complete this operation.
+Restored 0 package(s) from C:\Users\nfite\AppData\Local\vcpkg\archives in 162 us. Use --debug to see more details.
+Installing 1/7 vcpkg-cmake-config:x64-windows@2024-05-23...
+Building vcpkg-cmake-config:x64-windows@2024-05-23...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\97a63e4bc1a17422ffe4eff71da53b4b561a7841: info: installing from git registry git+https://github.com/microsoft/vcpkg@97a63e4bc1a17422ffe4eff71da53b4b561a7841
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake-config_x64-windows/share/vcpkg-cmake-config/vcpkg_cmake_config_fixup.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake-config_x64-windows/share/vcpkg-cmake-config/vcpkg-port-config.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake-config_x64-windows/share/vcpkg-cmake-config/copyright
+-- Skipping post-build validation due to VCPKG_POLICY_EMPTY_PACKAGE
+Starting submission of vcpkg-cmake-config:x64-windows@2024-05-23 to 1 binary cache(s) in the background
+Elapsed time to handle vcpkg-cmake-config:x64-windows: 48.7 ms
+vcpkg-cmake-config:x64-windows package ABI: 8145eeca2712968880c33999c53f2e428010fad6a80742f2cb515908556ab4ac
+Installing 2/7 vcpkg-cmake:x64-windows@2024-04-23...
+Building vcpkg-cmake:x64-windows@2024-04-23...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\e74aa1e8f93278a8e71372f1fa08c3df420eb840: info: installing from git registry git+https://github.com/microsoft/vcpkg@e74aa1e8f93278a8e71372f1fa08c3df420eb840
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake_x64-windows/share/vcpkg-cmake/vcpkg_cmake_configure.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake_x64-windows/share/vcpkg-cmake/vcpkg_cmake_build.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake_x64-windows/share/vcpkg-cmake/vcpkg_cmake_install.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake_x64-windows/share/vcpkg-cmake/vcpkg-port-config.cmake
+-- Installing: C:/dev/vcpkg/packages/vcpkg-cmake_x64-windows/share/vcpkg-cmake/copyright
+-- Performing post-build validation
+Starting submission of vcpkg-cmake:x64-windows@2024-04-23 to 1 binary cache(s) in the background
+Elapsed time to handle vcpkg-cmake:x64-windows: 56.9 ms
+vcpkg-cmake:x64-windows package ABI: ee04c3f545d59cc85290b1c3a25d1da1e1befc4372efd6d5ea85e83a65b89773
+Completed submission of vcpkg-cmake-config:x64-windows@2024-05-23 to 1 binary cache(s) in 29 ms
+Installing 3/7 egl-registry:x64-windows@2024-01-25...
+Building egl-registry:x64-windows@2024-01-25...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\d883db43133dd223c4ffdbef4193943f6784d43a: info: installing from git registry git+https://github.com/microsoft/vcpkg@d883db43133dd223c4ffdbef4193943f6784d43a
+Downloading https://github.com/KhronosGroup/EGL-Registry/archive/7db3005d4c2cb439f129a0adc931f3274f9019e6.tar.gz -> KhronosGroup-EGL-Registry-7db3005d4c2cb439f129a0adc931f3274f9019e6.tar.gz
+Successfully downloaded KhronosGroup-EGL-Registry-7db3005d4c2cb439f129a0adc931f3274f9019e6.tar.gz
+-- Extracting source C:/dev/vcpkg/downloads/KhronosGroup-EGL-Registry-7db3005d4c2cb439f129a0adc931f3274f9019e6.tar.gz
+-- Using source at C:/dev/vcpkg/buildtrees/egl-registry/src/274f9019e6-49d6bdb34a.clean
+-- Installing: C:/dev/vcpkg/packages/egl-registry_x64-windows/share/egl-registry/copyright
+-- Performing post-build validation
+Starting submission of egl-registry:x64-windows@2024-01-25 to 1 binary cache(s) in the background
+Elapsed time to handle egl-registry:x64-windows: 1.7 s
+egl-registry:x64-windows package ABI: 581f736877d90139ace87f1e382dfe9a1c86df62cc9a0cb8a4b5458b58f0d4e6
+Completed submission of vcpkg-cmake:x64-windows@2024-04-23 to 1 binary cache(s) in 30 ms
+Installing 4/7 opengl-registry:x64-windows@2024-02-10#1...
+Building opengl-registry:x64-windows@2024-02-10#1...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\22f7aa58ee78c9f0db904b6251e9265f2be26f9d: info: installing from git registry git+https://github.com/microsoft/vcpkg@22f7aa58ee78c9f0db904b6251e9265f2be26f9d
+Downloading https://github.com/KhronosGroup/OpenGL-Registry/archive/3530768138c5ba3dfbb2c43c830493f632f7ea33.tar.gz -> KhronosGroup-OpenGL-Registry-3530768138c5ba3dfbb2c43c830493f632f7ea33.tar.gz
+Successfully downloaded KhronosGroup-OpenGL-Registry-3530768138c5ba3dfbb2c43c830493f632f7ea33.tar.gz
+-- Extracting source C:/dev/vcpkg/downloads/KhronosGroup-OpenGL-Registry-3530768138c5ba3dfbb2c43c830493f632f7ea33.tar.gz
+-- Using source at C:/dev/vcpkg/buildtrees/opengl-registry/src/f632f7ea33-4952f9ace9.clean
+-- Installing: C:/dev/vcpkg/packages/opengl-registry_x64-windows/share/opengl-registry/copyright
+-- Performing post-build validation
+Starting submission of opengl-registry:x64-windows@2024-02-10#1 to 1 binary cache(s) in the background
+Elapsed time to handle opengl-registry:x64-windows: 3.4 s
+opengl-registry:x64-windows package ABI: 0ddf5709ac9cfae5890b0f282ceb87eb737810048d0ce66056f8fcf2fe3f7351
+Completed submission of egl-registry:x64-windows@2024-01-25 to 1 binary cache(s) in 41.4 ms
+Installing 5/7 opengl:x64-windows@2022-12-04#3...
+Building opengl:x64-windows@2022-12-04#3...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\c3ae71738f88449ebcd781cef60d9a253fa091d4: info: installing from git registry git+https://github.com/microsoft/vcpkg@c3ae71738f88449ebcd781cef60d9a253fa091d4
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/include/GL/gl.h
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/include/GL/glu.h
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/lib/OpenGL32.Lib
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/lib/GlU32.Lib
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/debug/lib/OpenGL32.Lib
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/debug/lib/GlU32.Lib
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/opengl_x64-windows/lib/pkgconfig/glu.pc
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/opengl_x64-windows/lib/pkgconfig/opengl.pc
+Downloading msys2-mingw-w64-x86_64-pkgconf-1~2.3.0-1-any.pkg.tar.zst, trying https://mirror.msys2.org/mingw/mingw64/mingw-w64-x86_64-pkgconf-1~2.3.0-1-any.pkg.tar.zst
+Successfully downloaded msys2-mingw-w64-x86_64-pkgconf-1~2.3.0-1-any.pkg.tar.zst
+Downloading msys2-msys2-runtime-3.5.4-2-x86_64.pkg.tar.zst, trying https://mirror.msys2.org/msys/x86_64/msys2-runtime-3.5.4-2-x86_64.pkg.tar.zst
+Successfully downloaded msys2-msys2-runtime-3.5.4-2-x86_64.pkg.tar.zst
+-- Using msys root at C:/dev/vcpkg/downloads/tools/msys2/21caed2f81ec917b
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/opengl_x64-windows/debug/lib/pkgconfig/glu.pc
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/opengl_x64-windows/debug/lib/pkgconfig/opengl.pc
+-- Installing: C:/dev/vcpkg/packages/opengl_x64-windows/share/opengl/usage
+-- Performing post-build validation
+Starting submission of opengl:x64-windows@2022-12-04#3 to 1 binary cache(s) in the background
+Elapsed time to handle opengl:x64-windows: 3.4 s
+opengl:x64-windows package ABI: 37d68933928ee7a28e8b46ccdbe4baaefc3344e0eb93d0e4db57b41a806f06b7
+Completed submission of opengl-registry:x64-windows@2024-02-10#1 to 1 binary cache(s) in 177 ms
+Installing 6/7 glew:x64-windows@2.2.0#6...
+Building glew:x64-windows@2.2.0#6...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\98d4ecc965968cdc8c85c0347c4638bbda36bef4: info: installing from git registry git+https://github.com/microsoft/vcpkg@98d4ecc965968cdc8c85c0347c4638bbda36bef4
+Downloading https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.tgz -> glew-2.2.0.tgz
+Successfully downloaded glew-2.2.0.tgz
+-- Extracting source C:/dev/vcpkg/downloads/glew-2.2.0.tgz
+-- Applying patch fix-LNK2019.patch
+-- Applying patch base_address.patch
+-- Applying patch cmake_version.patch
+-- Using source at C:/dev/vcpkg/buildtrees/glew/src/glew-325dbb3aae.clean
+-- Found external ninja('1.12.1').
+-- Configuring x64-windows-dbg
+-- Configuring x64-windows-rel
+-- Building x64-windows-dbg
+-- Building x64-windows-rel
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/glew_x64-windows/lib/pkgconfig/glew.pc
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/glew_x64-windows/debug/lib/pkgconfig/glew.pc
+-- Installing: C:/dev/vcpkg/packages/glew_x64-windows/share/glew/vcpkg-cmake-wrapper.cmake
+-- Installing: C:/dev/vcpkg/packages/glew_x64-windows/share/glew/copyright
+-- Performing post-build validation
+Starting submission of glew:x64-windows@2.2.0#6 to 1 binary cache(s) in the background
+Elapsed time to handle glew:x64-windows: 22 s
+glew:x64-windows package ABI: 2b81156754b7c615ef422f7130feeb78672b48b17784c9d12faf256f3ba16ed3
+Completed submission of opengl:x64-windows@2022-12-04#3 to 1 binary cache(s) in 46.9 ms
+Installing 7/7 glfw3:x64-windows@3.4#1...
+Building glfw3:x64-windows@3.4#1...
+C:\Users\nfite\AppData\Local\vcpkg\registries\git-trees\d4bbd4f27c2ca619f57778985120cddcedadb1cc: info: installing from git registry git+https://github.com/microsoft/vcpkg@d4bbd4f27c2ca619f57778985120cddcedadb1cc
+Downloading https://github.com/glfw/glfw/archive/3.4.tar.gz -> glfw-glfw-3.4.tar.gz
+Successfully downloaded glfw-glfw-3.4.tar.gz
+-- Extracting source C:/dev/vcpkg/downloads/glfw-glfw-3.4.tar.gz
+-- Using source at C:/dev/vcpkg/buildtrees/glfw3/src/3.4-2448ff4533.clean
+-- Found external ninja('1.12.1').
+-- Configuring x64-windows
+-- Building x64-windows-dbg
+-- Building x64-windows-rel
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/glfw3_x64-windows/lib/pkgconfig/glfw3.pc
+-- Using cached msys2-mingw-w64-x86_64-pkgconf-1~2.3.0-1-any.pkg.tar.zst
+-- Using cached msys2-msys2-runtime-3.5.4-2-x86_64.pkg.tar.zst
+-- Using msys root at C:/dev/vcpkg/downloads/tools/msys2/21caed2f81ec917b
+-- Fixing pkgconfig file: C:/dev/vcpkg/packages/glfw3_x64-windows/debug/lib/pkgconfig/glfw3.pc
+-- Installing: C:/dev/vcpkg/packages/glfw3_x64-windows/share/glfw3/copyright
+-- Performing post-build validation
+Starting submission of glfw3:x64-windows@3.4#1 to 1 binary cache(s) in the background
+Elapsed time to handle glfw3:x64-windows: 3.8 s
+glfw3:x64-windows package ABI: c2874974e8aa8ac3ce420cd8f58b8e4c149f8f4031eb11a701f462ab18efba06
+Total install time: 34 s
 The package glew is compatible with built-in CMake targets:
 
     find_package(GLEW REQUIRED)
@@ -18,3 +150,6 @@ glfw3 provides pkg-config modules:
   # A multi-platform library for OpenGL, window and input
   glfw3
 
+Completed submission of glew:x64-windows@2.2.0#6 to 1 binary cache(s) in 186 ms
+Waiting for 1 remaining binary cache submissions...
+Completed submission of glfw3:x64-windows@3.4#1 to 1 binary cache(s) in 76 ms (1/1)

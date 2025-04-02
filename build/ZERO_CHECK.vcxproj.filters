@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nfite\Desktop\NightDriveOpenGL\build\CMakeFiles\5fbf4e2e204e317f6681e9dae83cc3d3\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A4DFC37D-4A54-33DF-BCC5-EE6983E9A338}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

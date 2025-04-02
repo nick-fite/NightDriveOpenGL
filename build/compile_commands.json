@@ -1,8 +1,0 @@
-[
-{
-  "directory": "D:/profile redirect/nfite/Desktop/NightDriveOpenGL/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe -DGLFW_DLL @CMakeFiles/NightDrive.dir/includes_C.rsp -g -std=gnu99 -o CMakeFiles\\NightDrive.dir\\main.c.obj -c \"D:\\profile redirect\\nfite\\Desktop\\NightDriveOpenGL\\main.c\"",
-  "file": "D:/profile redirect/nfite/Desktop/NightDriveOpenGL/main.c",
-  "output": "CMakeFiles/NightDrive.dir/main.c.obj"
-}
-]

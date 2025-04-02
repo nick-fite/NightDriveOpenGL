@@ -18,8 +18,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 #define pixelScale 4/res
 #define GLSW (SW*pixelScale)
 #define GLSH (SH*pixelScale)
-#define numSect 4
-#define numWall 16
+#define numSect 2
+#define numWall 4
 typedef struct
 {
    int fr1, fr2;
@@ -38,7 +38,7 @@ typedef struct {
 }walls; walls W[30];
 
 typedef struct {
-    int ws,we;             //wall number start and end
+ int ws,we;             //wall number start and end
  int z1,z2;             //height of bottom and top 
  int d;                 //add y distances to sort drawing order
  int c1,c2;             //bottom and top color
@@ -52,39 +52,58 @@ typedef struct
    float sin[360];
 } math; math M;
 
+typedef struct
+{
+   sectors* S;
+   walls* W;
+}GoalPost; GoalPost Post;
+
+typedef struct
+{
+   GoalPost currentPost;
+   GoalPost nextPost;
+} PostsList; PostsList postsList;
+
+
 
 void Draw3D();
 void DrawWall(int x1,int x2, int b1,int b2, int t1,int t2, int c, int s);
 
 int loadSectors[]=
 {//wall start, wall end, z1 height, z2 height, bottom color, top color
- 0,  4, 0, 40, 2,3, //sector 1
- 4,  8, 0, 40, 4,5, //sector 2
- 8, 12, 0, 40, 6,7, //sector 3
- 12,16, 0, 40, 0,1, //sector 4
+ 0,  4, 0, 32, 2,3, //sector 1
+ 4,  8, 0, 32, 4,5, //sector 2
+ //8, 12, 0, 40, 6,7, //sector 3
+ //12,16, 0, 40, 0,1, //sector 4
+ //16,20, 0, 40, 0,2, //sector 4
 };
 
 int loadWalls[]=
 {//x1,y1, x2,y2, color
-  0, 0, 32, 0, 0,
- 32, 0, 32,32, 1,
- 32,32,  0,32, 0,
-  0,32,  0, 0, 1,
+  0, 0, 16, 0, 0,
+ 16, 0, 16,16, 1,
+ 16,16,  0,16, 0,
+  0,16,  0, 0, 1,
 
- 64, 0, 96, 0, 2,
- 96, 0, 96,32, 3,
- 96,32, 64,32, 2,
- 64,32, 64, 0, 3,
+ 96,   0,  112,    0, 2,
+ 112,   0,  112,   16, 3, //good
+ 112,  16,  96,   16, 4,
+ 96,  16,  96,    0, 5,
 
- 64, 64, 96, 64, 4,
+ /*64, 64, 96, 64, 4,
  96, 64, 96, 96, 5,
  96, 96, 64, 96, 4,
  64, 96, 64, 64, 5,
 
+  0, 101, 32, 101, 10,
+ 32, 101, 32, 133, 10,
+ 32, 133, 0, 133, 10,
+  0, 133, 0, 101, 10,
+
   0, 64, 32, 64, 6,
  32, 64, 32, 96, 7,
  32, 96,  0, 96, 6,
-  0, 96,  0, 64, 7,
+  0, 96,  0, 64, 7,*/
 };
 
 void Init() {
@@ -93,11 +112,11 @@ void Init() {
       M.cos[x] = cos(x/180.0*PI);
       M.sin[x] = sin(x/180.0*PI);
    }
-   P.x = 70;
+   P.x = 50;
    P.y = -110;
-   P.z = 20;
+   P.z = -30;
    P.a = 0;
-   P.l = 0;
+   P.l = -30;
 
    int s,w,v1=0,v2=0;
  for(s=0;s<numSect;s++)
@@ -119,6 +138,30 @@ void Init() {
    v2+=5;
   }
  }
+ Post.S = S;
+ Post.W = W;
+}
+
+void GenerateNewPosts()
+{
+   GoalPost newPost;
+   for(int i = 0; i < numSect; i++)
+   {
+      newPost.S[i] = Post.S[i];
+      for(int w = S[i].ws; w < S[i].we; w++)
+      {
+         newPost.W[w].y1 = Post.W[w].y1 + 30;
+         newPost.W[w].y2 = Post.W[w].y2 + 30;
+         newPost.W[w].x1 = Post.W[w].x1;
+         newPost.W[w].x2 = Post.W[w].x2;
+         newPost.W[w].c = Post.W[w].c;
+      }
+   }
+   postsList.nextPost = newPost; 
+}
+void NextPost()
+{
+
 }
 
 void Pixel(int x, int y, int color)
@@ -228,7 +271,7 @@ int main() {
         return -1;
     }
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    glfwSwapInterval(2);
 
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);  // Set a dark background color
     glMatrixMode(GL_PROJECTION);
@@ -265,9 +308,11 @@ int main() {
       }
       if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
          P.l += 1;
+         printf("%d",P.l);
       }
       if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
          P.l -= 1;
+         printf("%d",P.l);
       }
       ClearBackground();
       Draw3D();

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Nick/Desktop/opengl/NightDrive/build",
+  "command": "\"C:/Program Files/LLVM/bin/clang.exe\" -DGLFW_DLL @CMakeFiles/NightDrive.dir/includes_C.rsp -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -std=gnu99 -o CMakeFiles/NightDrive.dir/main.c.obj -c C:/Users/Nick/Desktop/opengl/NightDrive/main.c",
+  "file": "C:/Users/Nick/Desktop/opengl/NightDrive/main.c",
+  "output": "CMakeFiles/NightDrive.dir/main.c.obj"
+}
+]

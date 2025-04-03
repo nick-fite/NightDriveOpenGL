@@ -22,6 +22,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 #define numSect 2
 #define numWall 8
 #define numPosts 30
+#define speed 4
+
+
 typedef struct
 {
    int fr1, fr2;
@@ -89,10 +92,10 @@ int loadWalls[]=
  16,16,  0,16, 10,
   0,16,  0, 0, 10,
 
- 96,   0,  112,  0, 10,
- 112,   0,  112, 16, 10, 
- 112,  16,  96,  16, 10,
- 96,  16,  96,   0, 10,
+ 112,   0,  128,  0, 10,
+ 128,   0,  128, 16, 10, 
+ 128,  16,  112,  16, 10,
+ 112,  16,  112,   0, 10,
 
  /*64, 64, 96, 64, 4,
  96, 64, 96, 96, 5,
@@ -180,32 +183,157 @@ void GenerateNewPosts()
       // Assign the new post to the postsList
       postsList.Posts[j] = newPost;
    }
-   /*for(int j = 0; j < 30; j++)
+}
+
+typedef struct
+{
+   int x, y;
+} point;
+
+point CalculateCurve(float t, int x0, int y0, int x1, int y1, int x2, int y2)
+{
+   int newX = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * x1 + t * t * x2;
+   int newY = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * y1 + t * t * y2;
+   return (point){newX, newY};
+   
+
+   //float t = (float)rand() / RAND_MAX; // Random t value between 0 and 1
+   //int bezierX1 = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * limitX + t * t * controlX;
+   //return bezierX1;
+   //*x1 += bezierX1;
+   //*x2 += bezierX1;
+   //printf("Bezier X1: %d, X2: %d\n", *x1, *x2);
+}
+
+float RandomFloat(float min, float max) {
+   srand(45678654); // Seed the random number generator
+   return min + (rand() / (RAND_MAX / (max - min)));
+}
+int Randomint(float min, float max) {
+   srand(1); // Seed the random number generator
+   return min + (rand() / (RAND_MAX / (max - min)));
+}
+int numT = 0;
+int numPostsTillCurve = 0;
+int leftRight = -1;
+void UpdatePosts()
+{
+   //static int firstPostIndex = 0; // Tracks the first post in the circular buffer
+   if(postsList.Posts[4].W[4].y1 < P.y - 50)
    {
+      printf("Post %d is behind the player\n", 0);
+      free(postsList.Posts[0].S);
+      free(postsList.Posts[0].W);
+      for(int i = 0; i < numPosts - 1; i++)
+      {
+         postsList.Posts[i] = postsList.Posts[i + 1]; // Shift posts in the list
+      }
+      
+      //for (int j = 0; j < numPosts; j++)
+      //{
+      // Allocate memory for a new GoalPost
       GoalPost newPost;
       newPost.S = malloc(numSect * sizeof(sectors));
       newPost.W = malloc(numWall * sizeof(walls));
-      for(int i = 0; i < numSect; i++)
+
+
+         point P0 = {postsList.Posts[numPosts - 1].W[numWall - 1].x1,postsList.Posts[numPosts - 1].W[numWall - 1].y1 };
+         point P2 = {0, 0};
+         point P1 = {0, 0};
+         P1.x = P0.x + 30 * -1; // Random x offset for the control point
+         P1.y = P0.y + 30;
+         P2.x = P0.x + 30; // Move forward in x
+         P2.y = P0.y + 30; // Move forward in y
+      //float t = 1.0f;
+      float t = numT/100.0f;
+      point curve = CalculateCurve(t, P0.x, P0.y, P1.x, P1.y, P2.x, P2.y);
+        // printf("Curve Point: x=%d, y=%d\n", curve.x, curve.y);
+      // Initialize sectors and walls
+      for (int i = 0; i < numSect; i++)
       {
-         newPost.S[i] = Post.S[i];
-         for(int w = newPost.S[i].ws; w < newPost.S[i].we; w++)
+         // Copy sector data
+         newPost.S[i] = S[i];
+         newPost.S[i].ws = S[i].ws;
+         newPost.S[i].we = S[i].we;
+         newPost.S[i].z1 = S[i].z1;
+         newPost.S[i].z2 = S[i].z2;
+         newPost.S[i].d = S[i].d;
+         newPost.S[i].c1 = S[i].c1;
+         newPost.S[i].c2 = S[i].c2;
+         newPost.S[i].surface = S[i].surface;
+         // Copy the surf array
+         for (int x = 0; x < SW; x++) {
+          newPost.S[i].surf[x] = S[i].surf[x];
+         }
+         //newPost.S[i].ws += 4 * j;
+         //newPost.S[i].we += 4 * j;
+
+         int dy = curve.y - P0.y + numSect*2;
+         int dx = curve.x - P0.x + numSect*2;
+         // Validate wall indices
+         if (newPost.S[i].ws < 0 || newPost.S[i].we > numWall)
          {
-            newPost.W[w].y1 = W[w].y1 + (5 * j);
-            newPost.W[w].y2 = W[w].y2 + (5 * j);
-            newPost.W[w].x1 = W[w].x1;
-            newPost.W[w].x2 = W[w].x2;
-            newPost.W[w].c = W[w].c;
+            printf("Error: Invalid wall indices in sector %d\n, ws: %d, we: %d", i,newPost.S[i].ws,newPost.S[i].we);
+            continue;
+         }
+         //newPost.W[i] = Post.W[i];
+
+         // Copy and adjust wall data
+         
+         for (int w = newPost.S[i].ws; w < newPost.S[i].we; w++)
+         {
+
+            newPost.W[w].y1 = postsList.Posts[numPosts - 1].W[w].y1 + dy;
+            newPost.W[w].y2 = postsList.Posts[numPosts - 1].W[w].y2 + dy;
+            newPost.W[w].x1 = postsList.Posts[numPosts - 1].W[w].x1 + dx;
+            newPost.W[w].x2 = postsList.Posts[numPosts - 1].W[w].x2 + dx;
+            newPost.W[w].c = Post.W[w].c;
+            /*int x0,y0,x1,y1;
+            
+            float x2,y2;
+            
+            x0 = postsList.Posts[numPosts - 1].W[w].x1;
+            y0 = postsList.Posts[numPosts - 1].W[w].y1 + 30;
+            x1 = postsList.Posts[numPosts - 1].W[w].x2;
+            y1 = postsList.Posts[numPosts - 1].W[w].y2 + 30;
+            x2 = RandomFloat(x0,x1);
+            y2 = RandomFloat(y0,y1);
+            
+            int t = (float)w / numWall -1;
+            
+            //printf("x0: %d, y0: %d, x1: %d, y1: %d, x2: %d, y2: %d\n", x0,y0,x1,y1,x2,y2);
+            point newPoint =  CalculateCurve(t,x0,y0,x1,y1,x2,y2);
+            printf("x: %d, y: %d\n", newPoint.x, newPoint.y);
+            //printf("xVal: %d, yVal: %d\n", *xVal, &yVal);
+            newPost.W[w].x1 = newPoint.x;
+            newPost.W[w].x2 = newPoint.x + 16;
+            //newPost.W[w].y1 = newPoint.y;
+            //newPost.W[w].y2 = newPoint.y;*/
          }
       }
-      printf("%d, ", newPost.W[j].y2);
-      postsList.Posts[j] = newPost;
 
+      postsList.Posts[numPosts - 1] = newPost; // Add the new post to the end of the list
+      if (numT > 100 && numPostsTillCurve < 1)
+      {
+         numT = 0;
+         numPostsTillCurve = RandomFloat(0, 40);
+         leftRight = Randomint(0, 1);
+         if(leftRight == 0)
+         {
+            leftRight = -1;
+         }
+      }
+      else if(numPostsTillCurve > 0)
+      {
+         numPostsTillCurve--;
+      }
+      else
+      {
+         numT += 1;
+         //numPostsTillCurve = RandomFloat(0, 40);
+      }
    }
-   printf("%d", sizeof(postsList.Posts)/sizeof(GoalPost));
-   
-   //postsList.nextPost = newPost; */
 }
-
 
 void PrintPostsList()
 {
@@ -392,27 +520,28 @@ int main() {
    
    while(!glfwWindowShouldClose(window))
    {
+      UpdatePosts();
       int dx = M.sin[P.a] * 10.0;
       int dy = M.cos[P.a] * 10.0;
-      if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+      //if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
          P.x+=dx;
          P.y+=dy;
-      }
-      if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+      //}
+      /*if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
          P.x-=dx;
          P.y-=dy;
-      }
+      }*/
       if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-         P.a -=4; if(P.a < 0){P.a+=360;}
+         P.a -= speed; if(P.a < 0){P.a+=360;}
       }
       if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-         P.a +=4; if(P.a > 359){P.a-=360;}
+         P.a +=speed; if(P.a > 359){P.a-=360;}
       }
       if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-         P.z -=4;
+         P.z -=speed;
       }
       if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-         P.z += 4;
+         P.z += speed;
       }
       if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
          P.l += 1;

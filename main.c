@@ -224,10 +224,10 @@ void UpdatePosts()
       point P0 = {postsList.Posts[numPosts - 1].W[numWall - 1].x1,postsList.Posts[numPosts - 1].W[numWall - 1].y1 };
       point P2 = {0, 0};
       point P1 = {0, 0};
-      P1.x = P0.x + 30 * -1; // Random x offset for the control point
+      P1.x = P0.x + 30 * -1;
       P1.y = P0.y + 30;
-      P2.x = P0.x + 30; // Move forward in x
-      P2.y = P0.y + 30; // Move forward in y
+      P2.x = P0.x + 30;
+      P2.y = P0.y + 30; 
       float t = numT/100.0f;
       point curve = CalculateCurve(t, P0.x, P0.y, P1.x, P1.y, P2.x, P2.y);
       for (int i = 0; i < numSect; i++)
@@ -242,13 +242,11 @@ void UpdatePosts()
          newPost.S[i].c1 = S[i].c1;
          newPost.S[i].c2 = S[i].c2;
          newPost.S[i].surface = S[i].surface;
-         // Copy the surf array
+
          for (int x = 0; x < SW; x++) {
           newPost.S[i].surf[x] = S[i].surf[x];
          }
-         //newPost.S[i].ws += 4 * j;
-         //newPost.S[i].we += 4 * j;
-
+         
          int dy = curve.y - P0.y + numSect*2;
          int dx = curve.x - P0.x + numSect*2;
          // Validate wall indices
@@ -257,9 +255,7 @@ void UpdatePosts()
             printf("Error: Invalid wall indices in sector %d\n, ws: %d, we: %d", i,newPost.S[i].ws,newPost.S[i].we);
             continue;
          }
-         //newPost.W[i] = Post.W[i];
 
-         // Copy and adjust wall data
          
          for (int w = newPost.S[i].ws; w < newPost.S[i].we; w++)
          {

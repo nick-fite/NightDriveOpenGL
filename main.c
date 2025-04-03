@@ -479,6 +479,7 @@ int main() {
     }
 
     
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     GLFWwindow* window = glfwCreateWindow(SW, SH, "Night Drive", NULL, NULL);
     if (!window) {
         printf("Failed to create GLFW window!\n");

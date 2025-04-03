@@ -10,10 +10,6 @@
 #include "stb_easy_font.h"
 
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-}
-
 #define res 4
 #define PI  3.14159265359
 #define SW 1200
@@ -29,7 +25,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 #define turnSpeed 4
 float Speed = 10;
 int Score = 0;
-int health = 10;
+int health = 100;
 bool gameOver = false;
 
 
@@ -139,20 +135,12 @@ void GenerateInitialPosts()
          for (int x = 0; x < SW; x++) {
           newPost.S[i].surf[x] = S[i].surf[x];
       }
-         //newPost.S[i].ws += 4 * j;
-         //newPost.S[i].we += 4 * j;
 
-         // Validate wall indices
          if (newPost.S[i].ws < 0 || newPost.S[i].we > numWall)
          {
             printf("Error: Invalid wall indices in sector %d\n, ws: %d, we: %d", i,newPost.S[i].ws,newPost.S[i].we);
             continue;
          }
-         //newPost.W[i] = Post.W[i];
-
-         // Copy and adjust wall data
-         
-         
          for (int w = newPost.S[i].ws; w < newPost.S[i].we; w++)
          {
             newPost.W[w].y1 = Post.W[w].y1 + (30 * j);
@@ -162,16 +150,6 @@ void GenerateInitialPosts()
             newPost.W[w].c = Post.W[w].c;
          }
       }
-
-      // Debugging output for walls
-      /*for (int w = 0; w < numWall; w++)
-      {
-         printf("Post.W[%d]: x1=%d, y1=%d, x2=%d, y2=%d, c=%d\n", w, Post.W[w].x1, Post.W[w].y1, Post.W[w].x2, Post.W[w].y2, Post.W[w].c);
-         printf("newPost.W[%d]: x1=%d, y1=%d, x2=%d, y2=%d, c=%d\n", w, newPost.W[w].x1, newPost.W[w].y1, newPost.W[w].x2, newPost.W[w].y2, newPost.W[w].c);
-         //printf("Post %d, Wall %d: y1=%d, y2=%d\n", j, w, newPost.W[w].y1, newPost.W[w].y2);
-      }*/
-
-      // Assign the new post to the postsList
       postsList.Posts[j] = newPost;
    }
 }
@@ -208,7 +186,7 @@ void UpdatePosts()
 {
    if(postsPastCounter > 29)
    {
-      Speed += 0.1f;
+      Speed += 0.2f;
       postsPastCounter = 0;
    }
    else if(postPastScoreCounter > 15)
@@ -217,7 +195,7 @@ void UpdatePosts()
       postPastScoreCounter = 0;
    }
 
-   if(postsList.Posts[0].W[0].x1 > P.x - 50 || postsList.Posts[0].W[4].x1 < P.x+10)
+   if(postsList.Posts[0].W[0].x1 > P.x - 10 || postsList.Posts[0].W[4].x1 < P.x+10)
    {
       healthCounter--;
       if(healthCounter <= 0)

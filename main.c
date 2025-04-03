@@ -6,6 +6,10 @@
 #include <wchar.h>
 #include <stdlib.h>
 
+#define STB_EASY_FONT_IMPLEMENTATION
+#include "stb_easy_font.h"
+
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -21,8 +25,12 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 #define GLSH (SH*pixelScale)
 #define numSect 2
 #define numWall 8
-#define numPosts 30
-#define speed 4
+#define numPosts 45
+#define turnSpeed 4
+float Speed = 10;
+int Score = 0;
+int health = 10;
+bool gameOver = false;
 
 
 typedef struct
@@ -65,7 +73,7 @@ typedef struct
 
 typedef struct
 {
-   GoalPost Posts[30];
+   GoalPost Posts[numPosts];
 
    /*GoalPost currentPost;
    GoalPost nextPost;*/
@@ -80,9 +88,6 @@ int loadSectors[]=
 {//wall start, wall end, z1 height, z2 height, bottom color, top color
  0,  4, 0, 32, 2,3, //sector 1
  4,  8, 0, 32, 4,5, //sector 2
- //8, 12, 0, 40, 6,7, //sector 3
- //12,16, 0, 40, 0,1, //sector 4
- //16,20, 0, 40, 0,2, //sector 4
 };
 
 int loadWalls[]=
@@ -92,25 +97,11 @@ int loadWalls[]=
  16,16,  0,16, 10,
   0,16,  0, 0, 10,
 
- 112,   0,  128,  0, 10,
- 128,   0,  128, 16, 10, 
- 128,  16,  112,  16, 10,
- 112,  16,  112,   0, 10,
+ 176,   0,  192,  0, 10,
+ 192,   0,  192, 16, 10, 
+ 192,  16,  176,  16, 10,
+ 176,  16,  176,   0, 10,
 
- /*64, 64, 96, 64, 4,
- 96, 64, 96, 96, 5,
- 96, 96, 64, 96, 4,
- 64, 96, 64, 64, 5,
-
-  0, 101, 32, 101, 10,
- 32, 101, 32, 133, 10,
- 32, 133, 0, 133, 10,
-  0, 133, 0, 101, 10,
-
-  0, 64, 32, 64, 6,
- 32, 64, 32, 96, 7,
- 32, 96,  0, 96, 6,
-  0, 96,  0, 64, 7,*/
 };
 
 void CleanupPostsList()
@@ -121,7 +112,7 @@ void CleanupPostsList()
       free(postsList.Posts[j].W);
    }
 }
-void GenerateNewPosts()
+void GenerateInitialPosts()
 {
    for (int j = 0; j < numPosts; j++)
    {
@@ -173,12 +164,12 @@ void GenerateNewPosts()
       }
 
       // Debugging output for walls
-      for (int w = 0; w < numWall; w++)
+      /*for (int w = 0; w < numWall; w++)
       {
          printf("Post.W[%d]: x1=%d, y1=%d, x2=%d, y2=%d, c=%d\n", w, Post.W[w].x1, Post.W[w].y1, Post.W[w].x2, Post.W[w].y2, Post.W[w].c);
          printf("newPost.W[%d]: x1=%d, y1=%d, x2=%d, y2=%d, c=%d\n", w, newPost.W[w].x1, newPost.W[w].y1, newPost.W[w].x2, newPost.W[w].y2, newPost.W[w].c);
          //printf("Post %d, Wall %d: y1=%d, y2=%d\n", j, w, newPost.W[w].y1, newPost.W[w].y2);
-      }
+      }*/
 
       // Assign the new post to the postsList
       postsList.Posts[j] = newPost;
@@ -197,12 +188,6 @@ point CalculateCurve(float t, int x0, int y0, int x1, int y1, int x2, int y2)
    return (point){newX, newY};
    
 
-   //float t = (float)rand() / RAND_MAX; // Random t value between 0 and 1
-   //int bezierX1 = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * limitX + t * t * controlX;
-   //return bezierX1;
-   //*x1 += bezierX1;
-   //*x2 += bezierX1;
-   //printf("Bezier X1: %d, X2: %d\n", *x1, *x2);
 }
 
 float RandomFloat(float min, float max) {
@@ -213,15 +198,39 @@ int Randomint(float min, float max) {
    srand(1); // Seed the random number generator
    return min + (rand() / (RAND_MAX / (max - min)));
 }
-int numT = 0;
+int numT = 50;
 int numPostsTillCurve = 0;
 int leftRight = -1;
+int postsPastCounter = 0;
+int postPastScoreCounter = 0;
+int healthCounter = 4;
 void UpdatePosts()
 {
-   //static int firstPostIndex = 0; // Tracks the first post in the circular buffer
-   if(postsList.Posts[4].W[4].y1 < P.y - 50)
+   if(postsPastCounter > 29)
    {
-      printf("Post %d is behind the player\n", 0);
+      Speed += 0.1f;
+      postsPastCounter = 0;
+   }
+   else if(postPastScoreCounter > 15)
+   {
+      Score+=1;
+      postPastScoreCounter = 0;
+   }
+
+   if(postsList.Posts[0].W[0].x1 > P.x - 50 || postsList.Posts[0].W[4].x1 < P.x+10)
+   {
+      healthCounter--;
+      if(healthCounter <= 0)
+      {
+         health -= 1;
+         healthCounter = 4;
+      }
+   }
+
+   if(postsList.Posts[0].W[0].y1 < P.y - 50)
+   {
+      postsPastCounter++;
+      postPastScoreCounter++;
       free(postsList.Posts[0].S);
       free(postsList.Posts[0].W);
       for(int i = 0; i < numPosts - 1; i++)
@@ -229,26 +238,20 @@ void UpdatePosts()
          postsList.Posts[i] = postsList.Posts[i + 1]; // Shift posts in the list
       }
       
-      //for (int j = 0; j < numPosts; j++)
-      //{
-      // Allocate memory for a new GoalPost
       GoalPost newPost;
       newPost.S = malloc(numSect * sizeof(sectors));
       newPost.W = malloc(numWall * sizeof(walls));
 
 
-         point P0 = {postsList.Posts[numPosts - 1].W[numWall - 1].x1,postsList.Posts[numPosts - 1].W[numWall - 1].y1 };
-         point P2 = {0, 0};
-         point P1 = {0, 0};
-         P1.x = P0.x + 30 * -1; // Random x offset for the control point
-         P1.y = P0.y + 30;
-         P2.x = P0.x + 30; // Move forward in x
-         P2.y = P0.y + 30; // Move forward in y
-      //float t = 1.0f;
+      point P0 = {postsList.Posts[numPosts - 1].W[numWall - 1].x1,postsList.Posts[numPosts - 1].W[numWall - 1].y1 };
+      point P2 = {0, 0};
+      point P1 = {0, 0};
+      P1.x = P0.x + 30 * -1; // Random x offset for the control point
+      P1.y = P0.y + 30;
+      P2.x = P0.x + 30; // Move forward in x
+      P2.y = P0.y + 30; // Move forward in y
       float t = numT/100.0f;
       point curve = CalculateCurve(t, P0.x, P0.y, P1.x, P1.y, P2.x, P2.y);
-        // printf("Curve Point: x=%d, y=%d\n", curve.x, curve.y);
-      // Initialize sectors and walls
       for (int i = 0; i < numSect; i++)
       {
          // Copy sector data
@@ -288,40 +291,15 @@ void UpdatePosts()
             newPost.W[w].x1 = postsList.Posts[numPosts - 1].W[w].x1 + dx;
             newPost.W[w].x2 = postsList.Posts[numPosts - 1].W[w].x2 + dx;
             newPost.W[w].c = Post.W[w].c;
-            /*int x0,y0,x1,y1;
-            
-            float x2,y2;
-            
-            x0 = postsList.Posts[numPosts - 1].W[w].x1;
-            y0 = postsList.Posts[numPosts - 1].W[w].y1 + 30;
-            x1 = postsList.Posts[numPosts - 1].W[w].x2;
-            y1 = postsList.Posts[numPosts - 1].W[w].y2 + 30;
-            x2 = RandomFloat(x0,x1);
-            y2 = RandomFloat(y0,y1);
-            
-            int t = (float)w / numWall -1;
-            
-            //printf("x0: %d, y0: %d, x1: %d, y1: %d, x2: %d, y2: %d\n", x0,y0,x1,y1,x2,y2);
-            point newPoint =  CalculateCurve(t,x0,y0,x1,y1,x2,y2);
-            printf("x: %d, y: %d\n", newPoint.x, newPoint.y);
-            //printf("xVal: %d, yVal: %d\n", *xVal, &yVal);
-            newPost.W[w].x1 = newPoint.x;
-            newPost.W[w].x2 = newPoint.x + 16;
-            //newPost.W[w].y1 = newPoint.y;
-            //newPost.W[w].y2 = newPoint.y;*/
          }
       }
 
-      postsList.Posts[numPosts - 1] = newPost; // Add the new post to the end of the list
+      postsList.Posts[numPosts - 1] = newPost; 
       if (numT > 100 && numPostsTillCurve < 1)
       {
-         numT = 0;
+         numT = 50;
          numPostsTillCurve = RandomFloat(0, 40);
-         leftRight = Randomint(0, 1);
-         if(leftRight == 0)
-         {
-            leftRight = -1;
-         }
+         leftRight = -leftRight;
       }
       else if(numPostsTillCurve > 0)
       {
@@ -330,7 +308,6 @@ void UpdatePosts()
       else
       {
          numT += 1;
-         //numPostsTillCurve = RandomFloat(0, 40);
       }
    }
 }
@@ -368,7 +345,7 @@ void Init() {
       M.cos[x] = cos(x/180.0*PI);
       M.sin[x] = sin(x/180.0*PI);
    }
-   P.x = 50;
+   P.x = 90;
    P.y = -110;
    P.z = -30;
    P.a = 0;
@@ -397,8 +374,10 @@ void Init() {
  Post.S = S;
  Post.W = W;
 
- GenerateNewPosts();
+ GenerateInitialPosts();
 }
+
+bool invertColors = false;
 
 void Pixel(int x, int y, int color)
 {
@@ -469,6 +448,13 @@ void Pixel(int x, int y, int color)
       break;
    }
 
+   if(invertColors)
+   {
+      red = 1.0f - red;
+      green = 1.0f - green;
+      blue = 1.0f - blue;
+   }
+
    glColor3f(red,green,blue);
    glBegin(GL_POINTS);
    glVertex2i(x * pixelScale + 2, y * pixelScale + 2);
@@ -493,6 +479,25 @@ int dist(int x1, int y1, int x2, int y2)
 
 }
 
+
+void RenderText(float x, float y, const char* text, float scale, float red, float green, float blue) {
+    char buffer[99999]; // Large buffer for vertices
+    int num_quads = stb_easy_font_print(x, y, text, NULL, buffer, sizeof(buffer));
+
+    glPushMatrix();
+    glTranslatef(x, y, 0);  // Move text to (x, y)
+    glScalef(scale, scale, 1); // Scale text
+
+    glColor3f(red, green, blue); // Set text color
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 16, buffer);
+    glDrawArrays(GL_QUADS, 0, num_quads * 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glPopMatrix();
+
+}
+
 int main() {
     if (!glfwInit()) {
         printf("GLFW initialization failed!\n");
@@ -506,65 +511,97 @@ int main() {
         glfwTerminate();
         return -1;
     }
+
+    if(!glewInit())
+    {
+      printf("gfInitFail!");
+      return -1;
+    }
+
+
+    
+    
     glfwMakeContextCurrent(window);
     glfwSwapInterval(2);
-
+    
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);  // Set a dark background color
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, SW, SH, 0, -1, 1);  // 2D orthographic projection
     glMatrixMode(GL_MODELVIEW);
-
+    
     //nonOpenGL
     Init();
-   
-   while(!glfwWindowShouldClose(window))
-   {
+    
+    bool endGame = false;
+    double gameOverTime = 0.0;
+    double flashTime = 0.0;
+    int timesFlashed = 0;
+    while(!glfwWindowShouldClose(window) && endGame == false)
+    {
+       
       UpdatePosts();
-      int dx = M.sin[P.a] * 10.0;
-      int dy = M.cos[P.a] * 10.0;
-      //if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+      int dx = M.sin[P.a] * Speed;
+      int dy = M.cos[P.a] * Speed;
          P.x+=dx;
          P.y+=dy;
-      //}
-      /*if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-         P.x-=dx;
-         P.y-=dy;
-      }*/
-      if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-         P.a -= speed; if(P.a < 0){P.a+=360;}
-      }
-      if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-         P.a +=speed; if(P.a > 359){P.a-=360;}
-      }
-      if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-         P.z -=speed;
-      }
-      if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-         P.z += speed;
-      }
-      if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-         P.l += 1;
-         printf("%d",P.l);
-      }
-      if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-         P.l -= 1;
-         printf("%d",P.l);
-      }
-      if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
-         PrintPostsList();
-      }
-      ClearBackground();
-      Draw3D();
+           if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+              P.a -= turnSpeed; if(P.a < 0){P.a+=360;}
+            }
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+               P.a += turnSpeed; if(P.a > 359){P.a-=360;}
+            }
+           ClearBackground();
+           Draw3D();
+           // Update score dynamically
+           glPushMatrix();
+           glLoadIdentity();
 
-      glfwSwapBuffers(window);  // Swap the buffer to display the rendered scene
-      glfwPollEvents();         // Poll for input events
+           if (!gameOver)
+           {
+              char scoreText[50];
+              char healthText[50];
+              sprintf(scoreText, "Score: %d", Score);
+              sprintf(healthText, "Health: %d", health);
+              RenderText(25, 25, scoreText, 2.0f, 1.0f, 1.0f, 1.0f);
+              RenderText(25, 35, healthText, 2.0f, 1.0f, 1.0f, 1.0f);
+            }
+            else
+            {
+               RenderText(3, 5, "Game Over", 20.0f, 1.0f, 0.0f, 0.0f);
+               //RenderText(25, 25, "R to Restart", 10.0f, 1.0f, 0.0f, 0.0f);
+               //RenderText(30, 35, "E to Exit", 10.0f, 1.0f, 0.0f, 0.0f);
+               Speed = 0;
+               float elapsedTime = glfwGetTime() - gameOverTime;
+               float flashElapsedTime = glfwGetTime() - flashTime;
+               
+               if(flashElapsedTime >= 0.2 && timesFlashed < 4)
+               {
+                  timesFlashed++;
+                  flashTime = glfwGetTime();
+                  invertColors = !invertColors;
+               }
 
-   }
-   
-   glfwDestroyWindow(window);
-   glfwTerminate();
-    return 0;
+               if(elapsedTime > 3.0f)
+               {
+                  endGame = true;
+               }
+            }
+            glPopMatrix();
+           
+            if (health <= 0 && gameOverTime == 0.0)
+            {
+               gameOver = true;
+               gameOverTime = glfwGetTime();
+               
+            }
+           glfwSwapBuffers(window);  // Swap the buffer to display the rendered scene
+           glfwPollEvents();        // Poll for input events
+      }
+         CleanupPostsList();
+         glfwDestroyWindow(window);
+         glfwTerminate();
+         return 0;
 }
 
 void clipBehindPlayer(int *x1,int *y1,int *z1, int x2,int y2,int z2) //clip line
@@ -578,67 +615,6 @@ void clipBehindPlayer(int *x1,int *y1,int *z1, int x2,int y2,int z2) //clip line
  *z1 = *z1 + s*(z2-(*z1));
 }
 
-/*void Draw3D()
-{
-    for (int postNum = 0; postNum < 30; postNum++) {
-        int s, w, loop, wx[4], wy[4], wz[4];
-        float CS = M.cos[P.a], SN = M.sin[P.a];
-
-        // Sort sectors by distance
-        for (s = 0; s < numSect - 1; s++) {
-            for (w = 0; w < numSect - s - 1; w++) {
-                if (postsList.Posts[postNum].S[w].d < postsList.Posts[postNum].S[w + 1].d) {
-                    sectors* sect = postsList.Posts[postNum].S;
-                    sectors st = sect[w];
-                    sect[w] = sect[w + 1];
-                    sect[w + 1] = st;
-                    postsList.Posts[postNum].S = sect;
-                }
-            }
-        }
-
-        // Draw sectors
-        for (s = 0; s < numSect; s++) {
-            postsList.Posts[postNum].S[s].d = 0; // Clear distance
-
-            for (loop = 0; loop < 2; loop++) {
-                for (w = postsList.Posts[postNum].S[s].ws; w < postsList.Posts[postNum].S[s].we; w++) {
-                    int x1 = postsList.Posts[postNum].W[w].x1 - P.x;
-                    int y1 = postsList.Posts[postNum].W[w].y1 - P.y;
-                    int x2 = postsList.Posts[postNum].W[w].x2 - P.x;
-                    int y2 = postsList.Posts[postNum].W[w].y2 - P.y;
-
-                    if (loop == 0) {
-                        int temp = x1; x1 = x2; x2 = temp;
-                        temp = y1; y1 = y2; y2 = temp;
-                    }
-
-                    wx[0] = x1 * CS - y1 * SN;
-                    wx[1] = x2 * CS - y2 * SN;
-                    wy[0] = y1 * CS + x1 * SN;
-                    wy[1] = y2 * CS + x2 * SN;
-
-                    if (wy[0] < 1 && wy[1] < 1) continue;
-
-                    if (wy[0] < 1) clipBehindPlayer(&wx[0], &wy[0], &wz[0], wx[1], wy[1], wz[1]);
-                    if (wy[1] < 1) clipBehindPlayer(&wx[1], &wy[1], &wz[1], wx[0], wy[0], wz[0]);
-
-                    wx[0] = wx[0] * 200 / wy[0] + SW2;
-                    wy[0] = wz[0] * 200 / wy[0] + SH2;
-                    wx[1] = wx[1] * 200 / wy[1] + SW2;
-                    wy[1] = wz[1] * 200 / wy[1] + SH2;
-
-                    if (wx[0] < 0) wx[0] = 0;
-                    if (wx[1] > SW) wx[1] = SW;
-                    if (wy[0] < 0) wy[0] = 0;
-                    if (wy[1] > SH) wy[1] = SH;
-
-                    DrawWall(wx[0], wx[1], wy[0], wy[1], wz[0], wz[1], postsList.Posts[postNum].W[w].c, s, postNum);
-                }
-            }
-        }
-    }
-}*/
 void Draw3D()
 {
 

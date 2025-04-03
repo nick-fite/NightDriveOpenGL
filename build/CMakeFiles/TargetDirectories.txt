@@ -1,3 +1,3 @@
-D:/profile redirect/nfite/Desktop/NightDriveOpenGL/build/CMakeFiles/NightDrive.dir
-D:/profile redirect/nfite/Desktop/NightDriveOpenGL/build/CMakeFiles/ALL_BUILD.dir
-D:/profile redirect/nfite/Desktop/NightDriveOpenGL/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Nick/Desktop/opengl/NightDrive/build/CMakeFiles/NightDrive.dir
+C:/Users/Nick/Desktop/opengl/NightDrive/build/CMakeFiles/edit_cache.dir
+C:/Users/Nick/Desktop/opengl/NightDrive/build/CMakeFiles/rebuild_cache.dir

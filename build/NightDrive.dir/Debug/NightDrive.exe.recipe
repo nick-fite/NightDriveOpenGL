@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\nfite\Desktop\NightDriveOpenGL\build\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>D:\profile redirect\nfite\Desktop\NightDriveOpenGL\build\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\nfite\Desktop\NightDriveOpenGL\build\Debug\NightDrive.exe</FullPath>
+      <FullPath>D:\profile redirect\nfite\Desktop\NightDriveOpenGL\build\Debug\NightDrive.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

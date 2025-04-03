@@ -2,8 +2,26 @@ Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe
 Detecting compiler hash for triplet x86-windows...
 Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x86/cl.exe
-All requested packages are currently installed.
-Total install time: 420 us
+The following packages will be removed:
+    brotli:x86-windows
+    bzip2:x86-windows
+    freetype:x86-windows
+    freetype-gl:x86-windows
+    libpng:x86-windows
+    zlib:x86-windows
+Removing 1/6 freetype-gl:x86-windows
+Elapsed time to handle freetype-gl:x86-windows: 15.5 ms
+Removing 2/6 freetype:x86-windows
+Elapsed time to handle freetype:x86-windows: 25.3 ms
+Removing 3/6 brotli:x86-windows
+Elapsed time to handle brotli:x86-windows: 17.1 ms
+Removing 4/6 bzip2:x86-windows
+Elapsed time to handle bzip2:x86-windows: 11.6 ms
+Removing 5/6 libpng:x86-windows
+Elapsed time to handle libpng:x86-windows: 13.5 ms
+Removing 6/6 zlib:x86-windows
+Elapsed time to handle zlib:x86-windows: 9.68 ms
+Total install time: 102 ms
 The package glew is compatible with built-in CMake targets:
 
     find_package(GLEW REQUIRED)
